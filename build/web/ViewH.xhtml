@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+    
+   
+    
+    
+    
+    <h:head>
+        <title>University Profile</title> 
+        <meta name="author" content="The Author"></meta>
+    </h:head>
+    <!-- Add 50px padding top to the body for the navbar -->
+    <h:body style="padding-top: 50px; padding-bottom: 20px;">
+        <b:navBar brand="Linked-U" brandHref="index.xhtml" inverse="true" fixed="top">
+            <b:navbarLinks>
+            
+                
+                <b:dropMenu value="Search">
+                    <b:navLink value="Search Students" href="search.xhtml"> </b:navLink>
+                <b:navLink value="Search Universities" href="searchU.xhtml"></b:navLink>
+                    
+                </b:dropMenu>
+                
+                
+                
+                <c:if test="${loginController.isAdmin}">
+                <b:dropMenu value="Admin Options">
+                    <b:navLink value="Action" href="#"></b:navLink>
+                    <b:navLink value="Another action" href="#"></b:navLink>
+                    <b:navLink value="Something else here" href="#"></b:navLink>
+                    <b:navLink></b:navLink>
+                    <b:navLink header="Nav header"></b:navLink>
+                    <b:navLink value="Separated link" href="#"></b:navLink>
+                    <b:navLink value="One more separated link" href="#"></b:navLink>
+                </b:dropMenu>
+                </c:if>
+                
+              
+            </b:navbarLinks>
+            <c:if test="${!loginController.loggedIn}">
+            <h:form styleClass="navbar-form navbar-right">
+                <div class="form-group">
+                    <b:inputText placeholder="Username" value="#{loginController.model.username}" fieldSize="sm"/>
+                    <!--input type="text" class="form-control" placeholder="Search"/-->
+                </div>
+                <div class="form-group">
+                    <b:inputSecret placeholder="Password" value="#{loginController.model.password}" fieldSize="sm"/>
+                </div>    
+                <b:commandButton action="#{loginController.processLogin()}" value="Sign in" look="success" icon="chevron-right" iconAlign="right"/>
+                
+            </h:form>
+            </c:if>
+            
+            
+            
+            <c:if test="${loginController.loggedIn}">
+            <h:form styleClass="navbar-form navbar-right">
+                
+                <c:if test="${!loginController.isAdmin}">
+                   <b:commandButton action="#{loginController.viewYourProfile()}" value="View profile" look="primary" />
+                   <b:commandButton action="#{loginController.editProfile()}" value="Edit profile" look="success" />
+                   </c:if>
+                
+                <c:if test="${loginController.isAdmin}">
+                   <b:commandButton action="options" value="Options" look="primary" />
+                   </c:if>
+                
+                
+                <b:commandButton action="#{loginController.logout()}" value="Sign Out" look="danger" icon="chevron-right" iconAlign="right"/>
+                
+            </h:form>
+            </c:if>
+            
+            
+            
+        </b:navBar>
+        
+        
+    </h:body>
+    
+    <b:jumbotron>
+        <b:container>
+           
+        <b:form inline="true">
+            
+            School Name : <h:outputText value="#{highlights.vh.name}"  /> <br></br><hr></hr>
+            
+            Address: <h:outputText value="#{highlights.vh.address}"  /> <br></br> 
+            
+            City: <h:outputText value="#{highlights.vh.city}"  /> <br></br>
+            
+             State: <h:outputText value="#{highlights.vh.state}"  /> <br></br> 
+             
+              Zip: <h:outputText value="#{highlights.vh.zip}"  /> <br></br>  <hr></hr>
+              
+              
+              Apply for Admissions: <a href="#{highlights.vh.link}" > Click here </a>
+              
+             
+              
+              
+            
+        </b:form>
+            
+            </b:container>
+        
+    </b:jumbotron>
+        
+        </html>

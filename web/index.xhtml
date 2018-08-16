@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+    
+   <f:metadata> 
+    <f:viewAction action="#{highlights.loadHighlights()}"/>   
+       
+   <!--    <f:event type="preRenderView" listener="#{highlights.loadHighlights()}" />  -->
+    </f:metadata>
+    
+    
+    
+    <h:head>
+        <title>Linked U</title> 
+        <meta name="author" content="The Author"></meta>
+    </h:head>
+    <!-- Add 50px padding top to the body for the navbar -->
+    <h:body style="padding-top: 50px; padding-bottom: 20px;">
+        <b:navBar brand="Linked-U" brandHref="index.xhtml" inverse="true" fixed="top">
+            <b:navbarLinks>
+            
+                
+                <b:dropMenu value="Search">
+                    <b:navLink value="Search Students" href="search.xhtml"> </b:navLink>
+                <b:navLink value="Search Universities" href="searchU.xhtml"></b:navLink>
+                    
+                </b:dropMenu>
+                
+                
+                
+                <c:if test="${loginController.isAdmin}">
+                <b:dropMenu value="Admin Options">
+                    <b:navLink value="Action" href="#"></b:navLink>
+                    <b:navLink value="Another action" href="#"></b:navLink>
+                    <b:navLink value="Something else here" href="#"></b:navLink>
+                    <b:navLink></b:navLink>
+                    <b:navLink header="Nav header"></b:navLink>
+                    <b:navLink value="Separated link" href="#"></b:navLink>
+                    <b:navLink value="One more separated link" href="#"></b:navLink>
+                </b:dropMenu>
+                </c:if>
+                
+              
+            </b:navbarLinks>
+            <c:if test="${!loginController.loggedIn}">
+            <h:form styleClass="navbar-form navbar-right">
+                <div class="form-group">
+                    <b:inputText placeholder="Username" value="#{loginController.model.username}" fieldSize="sm"/>
+                    <!--input type="text" class="form-control" placeholder="Search"/-->
+                </div>
+                <div class="form-group">
+                    <b:inputSecret placeholder="Password" value="#{loginController.model.password}" fieldSize="sm"/>
+                </div>    
+                <b:commandButton action="#{loginController.processLogin()}" value="Sign in" look="success" icon="chevron-right" iconAlign="right"/>
+                
+            </h:form>
+            </c:if>
+            
+            
+            
+            <c:if test="${loginController.loggedIn}">
+            <h:form styleClass="navbar-form navbar-right">
+                
+                <c:if test="${!loginController.isAdmin}">
+                   <b:commandButton action="#{loginController.viewYourProfile()}" value="View profile" look="primary" />
+                   <b:commandButton action="#{loginController.editProfile()}" value="Edit profile" look="success" />
+                   </c:if>
+                
+                <c:if test="${loginController.isAdmin}">
+                   <b:commandButton action="options" value="Options" look="primary" />
+                   </c:if>
+                
+                
+                <b:commandButton action="#{loginController.logout()}" value="Sign Out" look="danger" icon="chevron-right" iconAlign="right"/>
+                
+            </h:form>
+            </c:if>
+            
+            
+            
+        </b:navBar>
+        
+        
+        <b:jumbotron>
+            <b:container>
+                <h1>Welcome to Linked-U!</h1>
+                
+                <c:if test="${!loginController.isAdmin}">
+                <p>Welcome to Linked-U ! We provide a  network for High school students and Universities looking to promote themselves, interact, and more!
+                </p>
+                </c:if>
+                
+                <c:if test="${loginController.isAdmin}">
+                <p>Welcome Admin!
+                </p>
+                </c:if>
+                
+                
+                <c:if test="${!loginController.loggedIn}">
+                <p>
+                    <a href="signup.xhtml" class="btn btn-lg btn-info">Sign Up Now! »</a>
+                </p>
+                </c:if>
+                
+                <c:if test="${loginController.loggedIn}" >
+                <p>
+                    <h:form enctype="multipart/form-data">
+                        <h2>Upload a Profile Picture</h2>
+                        <p> File: <h:inputFile value="${uploadController.file}"/></p>
+                        <p><h:commandButton value="Upload" action="${uploadController.upload()}"/></p>
+                    </h:form>
+                </p>
+                </c:if>
+                
+                <c:if test="${loginController.studentLoggedIn}">
+                <p>
+                    <a href="searchU.xhtml" class="btn btn-lg btn-info">Look for Schools! »</a>
+                </p>
+                </c:if>
+                
+                <c:if test="${loginController.universityLoggedIn}">
+                <p>
+                    <a href="search.xhtml" class="btn btn-lg btn-info">Look for Students! »</a>
+                </p>
+                </c:if>
+                
+                
+            </b:container>
+
+        </b:jumbotron>
+        
+        
+        <b:container>
+            <h1> Highlighted University</h1>
+            <b:row>
+                <b:column col-md="4">
+                    <h2>#{highlights.h1.name}</h2>
+                    <p>Description from School(NEEDS TO BE ADDED TO TABLE AND MODEL FOR UNIVERSITY) </p>
+                    <p><b:button outcome="#{highlights.viewHighlight(1)}" value="View details »"/></p>   
+                
+                
+        <!--        </b:column>
+                <b:column col-md="4">
+                    <h2>#{highlights.h2.name}</h2>
+                    <p>Description from School(NEEDS TO BE ADDED TO TABLE AND MODEL FOR UNIVERSITY) </p>
+                    <p><b:button outcome="#{highlights.viewHighlight(2)}" value="View details »"/></p>
+                </b:column>
+                <b:column col-md="4">
+                   <h2>#{highlights.h3.name}</h2>
+                    <p>Description from School(NEEDS TO BE ADDED TO TABLE AND MODEL FOR UNIVERSITY) </p>
+                    <p><b:button outcome="#{highlights.viewHighlight(3)}" value="View details »"/></p> -->
+                </b:column>  
+            </b:row>
+            <hr/>
+            <footer style = "text-align:center ">
+            <h:outputText escape="false" value="Copyright 2017"  /> <br></br>
+            <h:outputText escape="false" value="Dwayne Thomas , Dominique Schauer, Brendan Legett " />
+            </footer>
+        </b:container>
+
+    </h:body>
+</html>

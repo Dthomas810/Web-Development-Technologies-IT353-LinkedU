@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      >
+    
+    
+    
+    
+    
+    <h:head>
+        <title>Student Signup Linked-U</title> 
+        <meta name="author" content="The Author"></meta>
+    </h:head>
+    <!-- Add 50px padding top to the body for the navbar -->
+    <h:body style="padding-top: 50px; padding-bottom: 20px;">
+        <b:navBar brand="Linked-U" brandHref="index.xhtml" inverse="true" fixed="top">
+            <b:navbarLinks>
+            
+                
+                <b:dropMenu value="Search">
+                    <b:navLink value="Search Students" href="search.xhtml"> </b:navLink>
+                <b:navLink value="Search Universities" href="searchU.xhtml"></b:navLink>
+                    
+                </b:dropMenu>
+                
+                <c:if test="${loginController.loggedIn}">
+                <b:dropMenu value="Options">
+                    <b:navLink value="View Profile" href="#"></b:navLink>
+                    <b:navLink value="Edit Profile" href="#"></b:navLink>
+                    <b:navLink value="Something else here" href="#"></b:navLink>
+                    <b:navLink></b:navLink>
+                    <b:navLink header="Nav header"></b:navLink>
+                    <b:navLink value="Separated link" href="#"></b:navLink>
+                    <b:navLink value="One more separated link" href="#"></b:navLink>
+                </b:dropMenu>
+                </c:if>
+                
+                <c:if test="${loginController.isAdmin}">
+                <b:dropMenu value="Admin Options">
+                    <b:navLink value="Action" href="#"></b:navLink>
+                    <b:navLink value="Another action" href="#"></b:navLink>
+                    <b:navLink value="Something else here" href="#"></b:navLink>
+                    <b:navLink></b:navLink>
+                    <b:navLink header="Nav header"></b:navLink>
+                    <b:navLink value="Separated link" href="#"></b:navLink>
+                    <b:navLink value="One more separated link" href="#"></b:navLink>
+                </b:dropMenu>
+                </c:if>
+                
+                <b:dropMenu value="Dropdown">
+                    <b:navLink value="Action" href="#"></b:navLink>
+                    <b:navLink value="Another action" href="#"></b:navLink>
+                    <b:navLink value="Something else here" href="#"></b:navLink>
+                    <b:navLink></b:navLink>
+                    <b:navLink header="Nav header"></b:navLink>
+                    <b:navLink value="Separated link" href="#"></b:navLink>
+                    <b:navLink value="One more separated link" href="#"></b:navLink>
+                </b:dropMenu>
+                
+               
+                
+            </b:navbarLinks>
+            <c:if test="${!loginController.loggedIn}">
+            <h:form styleClass="navbar-form navbar-right">
+                <div class="form-group">
+                    <b:inputText placeholder="Username" value="#{loginController.model.username}" fieldSize="sm"/>
+                    <!--input type="text" class="form-control" placeholder="Search"/-->
+                </div>
+                <div class="form-group">
+                    <b:inputSecret placeholder="Password" value="#{loginController.model.password}" fieldSize="sm"/>
+                </div> 
+                
+                <b:commandButton action="#{loginController.processLogin()}" value="Sign in" look="success" icon="chevron-right" iconAlign="right"/>
+                
+            </h:form>
+            </c:if>
+        </b:navBar>
+        
+        
+        <b:jumbotron>
+            <b:container>
+                <h1>Welcome Future College Student!</h1>
+                <p> Last Step! We'll send you a confirmation email/text(if you opt to recieve them) once your account has been created
+                </p>
+                
+                <h:form >
+                
+                    <b:inputText placeholder="School Name" value="#{loginController.umodel.name}" fieldSize="sm"/> <hr></hr>
+                    
+                    
+                    <b:inputText placeholder="Address" value="#{loginController.umodel.address}" fieldSize="sm"/>
+                    <b:inputText placeholder="City" value="#{loginController.umodel.city}" fieldSize="sm"/>
+                    <b:inputText placeholder="State" value="#{loginController.umodel.state}" fieldSize="sm"/>
+                    <b:inputText placeholder="Zip" value="#{loginController.umodel.zip}" fieldSize="sm"/><hr></hr>
+                    
+           
+                    <b:inputText placeholder="Link to Admission Website" value="#{loginController.smodel.uni3}" fieldSize="sm"/>
+                    
+                    
+                        
+                   
+                    <!--<b:selectBooleanCheckbox value='#{loginController.smodel.emailOpt}' caption ='Join University email listings upon Favoriting'  />
+                     <b:selectBooleanCheckbox value='#{loginController.smodel.textOpt}' caption ='Recieve text notifications'  />   -->
+                    
+                    
+ 
+                <b:commandButton action="#{loginController.processUniversityinfo()}" value="Done !" look="primary"  iconAlign="right" />
+            </h:form>
+                
+                
+            </b:container>
+
+        </b:jumbotron>
+        
+        
+        
+        
+        
+        
+
+    </h:body>
+</html>
